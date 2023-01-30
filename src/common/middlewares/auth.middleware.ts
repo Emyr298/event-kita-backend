@@ -29,14 +29,12 @@ export function authMiddleware(
             req['user'] = userInstance;
             next();
           })
-          .catch((error) => {
-            console.log(error);
+          .catch(() => {
             req['user'] = anonymousUser;
             next();
           });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         req['user'] = anonymousUser;
         next();
       });
