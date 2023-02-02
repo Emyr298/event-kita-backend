@@ -4,7 +4,7 @@ import { User } from 'src/common/entities/user.entity';
 import { NestMiddleware } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserInfo, UserStatus } from 'src/common/interfaces/user';
+import { TokenInfo, UserInfo, UserStatus } from 'src/common/interfaces/user';
 
 export class AuthMiddleware implements NestMiddleware {
   constructor(
@@ -16,20 +16,24 @@ export class AuthMiddleware implements NestMiddleware {
     const userInfo: UserInfo = {
       status: UserStatus.guest,
     };
+    let tokenInfo: TokenInfo = null;
     const tokenHeader = req.headers.authorization;
     if (tokenHeader) {
       const token = tokenHeader.replace('Bearer ', '');
-      let userId: string;
       try {
-        userId = (await fbApp.auth().verifyIdToken(token)).uid;
+        const decodedIdToken = await fbApp.auth().verifyIdToken(token);
+        tokenInfo = {
+          uid: decodedIdToken.uid,
+          email: decodedIdToken.email,
+        };
       } catch (error) {
-        userId = null;
+        tokenInfo = null;
       }
-      const isLoggedIn = !!userId;
+      const isLoggedIn = !!tokenInfo;
       if (isLoggedIn) {
         userInfo.status = UserStatus.loggedIn;
         const user = await this.usersRepository.findOneBy({
-          id: userId,
+          id: tokenInfo.uid,
         });
         if (user) {
           userInfo.status = UserStatus.profileSet;
@@ -37,6 +41,7 @@ export class AuthMiddleware implements NestMiddleware {
         }
       }
       req['user'] = userInfo;
+      req['token'] = tokenInfo;
       next();
     }
   }

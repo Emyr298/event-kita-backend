@@ -10,3 +10,8 @@ export interface UserInfo {
   status: UserStatus;
   information?: User;
 }
+
+export interface TokenInfo {
+  uid: string;
+  email: string;
+}
