@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { DatabaseModule } from './database.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthMiddlewareModule } from './common/middlewares/authMiddleware/authMiddleware.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     DatabaseModule,
     AuthModule,
+    AuthMiddlewareModule,
   ],
   controllers: [AppController],
   providers: [AppService],

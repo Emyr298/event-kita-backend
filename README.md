@@ -75,3 +75,4 @@ Nest is [MIT licensed](LICENSE).
 # References
 - https://medium.com/nerd-for-tech/nestjs-firebase-auth-secured-nestjs-resource-server-9649bcebd0de
 - https://syntaxer.medium.com/nestjs-create-a-crud-api-using-typeorm-and-postgresql-2c1ae6c2726
+- https://stackoverflow.com/questions/68396868/nestjs-middleware-with-dependencies
