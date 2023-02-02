@@ -34,8 +34,7 @@ export class UsersService {
       photo_url: photoUrl,
       register_time: new Date(),
     });
-    const newUser = await this.usersRepository.save(user);
-    return newUser;
+    return await this.usersRepository.save(user);
   }
 
   async remove(id: string): Promise<void> {
