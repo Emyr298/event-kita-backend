@@ -53,4 +53,16 @@ export class UsersService {
       return null;
     }
   }
+
+  async decodeToken(token: string): Promise<DecodedIdToken> {
+    try {
+      const decodedIdToken: DecodedIdToken = await fbApp
+        .auth()
+        .verifyIdToken(token);
+      const user = decodedIdToken;
+      return user;
+    } catch {
+      return null;
+    }
+  }
 }

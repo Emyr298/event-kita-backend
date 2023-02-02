@@ -1,14 +1,11 @@
-import { IsEmail, Length, IsUrl } from 'class-validator';
+import { Length, IsUrl } from 'class-validator';
 
-export class RegisterUserDto {
+export class SetProfileDto {
   @Length(1, 70)
   public firstName: string;
 
   @Length(1, 70)
   public lastName: string;
-
-  @IsEmail()
-  public email: string;
 
   @IsUrl()
   public photoUrl: string;
