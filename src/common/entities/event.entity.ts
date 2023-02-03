@@ -1,4 +1,11 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
 export enum EventCategory {
@@ -39,4 +46,8 @@ export class Event {
 
   @Column({ nullable: false })
   public image_url: string;
+
+  @ManyToMany(() => User, (user) => user.participated_events)
+  @JoinTable()
+  public participated_users: User[];
 }

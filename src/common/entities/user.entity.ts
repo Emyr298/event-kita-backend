@@ -1,8 +1,9 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
+import { Event } from './event.entity';
 
 @Entity('user_acc')
 export class User {
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'varchar' })
   public id: string;
 
   @Column({ nullable: false })
@@ -19,4 +20,7 @@ export class User {
 
   @Column({ type: 'timestamptz', nullable: false })
   public register_time: Date;
+
+  @ManyToMany(() => Event, (event) => event.participated_users)
+  public participated_events: Event[];
 }
