@@ -6,6 +6,7 @@ import * as Joi from 'joi';
 import { DatabaseModule } from './database.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddlewareModule } from './common/middlewares/authMiddleware/authMiddleware.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AuthMiddlewareModule } from './common/middlewares/authMiddleware/authMi
     DatabaseModule,
     AuthModule,
     AuthMiddlewareModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

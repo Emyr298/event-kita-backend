@@ -1,17 +1,12 @@
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
 
-export type EventCategory =
-  | 'attractions'
-  | 'music'
-  | 'arts and culture'
-  | 'education';
+export enum EventCategory {
+  attractions = 'attractions',
+  music = 'music',
+  artsAndCulture = 'artsAndCulture',
+  education = 'education',
+}
 
 @Entity('event')
 export class Event {
@@ -21,10 +16,10 @@ export class Event {
   @Column({ nullable: false })
   public name: string;
 
-  @Column({ type: 'float', nullable: false })
-  public rating: number;
+  @Column({ type: 'int', nullable: false })
+  public participants: number;
 
-  @Column({ type: 'varchar', length: 30, nullable: false })
+  @Column({ type: 'enum', enum: EventCategory, nullable: false })
   public category: EventCategory;
 
   @Column({ type: 'text', nullable: false })
@@ -41,20 +36,6 @@ export class Event {
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   public user: User;
-
-  @OneToMany(() => EventImage, (eventImage) => eventImage.event)
-  public image_urls: string;
-}
-
-@Entity('event_picture')
-export class EventImage {
-  @PrimaryGeneratedColumn()
-  public id: number;
-
-  @ManyToOne(() => Event, (event) => event.image_urls, {
-    onDelete: 'CASCADE',
-  })
-  public event: Event;
 
   @Column({ nullable: false })
   public image_url: string;

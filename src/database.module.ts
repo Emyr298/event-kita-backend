@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 // import { join } from 'path';
 
 import { User } from './common/entities/user.entity';
+import { Event } from './common/entities/event.entity';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { User } from './common/entities/user.entity';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [User],
+        entities: [User, Event],
         synchronize: true,
       }),
     }),

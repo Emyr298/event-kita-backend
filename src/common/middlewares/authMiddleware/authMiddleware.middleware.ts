@@ -40,9 +40,9 @@ export class AuthMiddleware implements NestMiddleware {
           userInfo.information = user;
         }
       }
-      req['user'] = userInfo;
-      req['token'] = tokenInfo;
-      next();
     }
+    req['user'] = userInfo;
+    req['token'] = tokenInfo;
+    next();
   }
 }
