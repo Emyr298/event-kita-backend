@@ -47,7 +47,7 @@ export class EventsController {
     return event;
   }
 
-  @Get('join')
+  @Get('/join/get')
   async getJoinEvent(@Req() req: Request) {
     const user: User = req['user'].information;
     if (!user) {

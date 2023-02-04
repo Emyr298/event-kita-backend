@@ -1,11 +1,4 @@
-import { Type } from 'class-transformer';
-import {
-  IsDateString,
-  IsEnum,
-  IsInt,
-  IsUrl,
-  IsOptional,
-} from 'class-validator';
+import { IsDateString, IsEnum, IsUrl, IsOptional } from 'class-validator';
 import { EventCategory } from 'src/common/entities/event.entity';
 import { FindAllOrderBy } from '../services/eventsServices.service';
 
