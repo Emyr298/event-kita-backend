@@ -41,8 +41,11 @@ export class Event {
   @Column({ type: 'timestamptz', nullable: false })
   public end_time: Date;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, { onDelete: 'CASCADE', nullable: false })
   public user: User;
+
+  @Column({ nullable: false })
+  public userId: string;
 
   @Column({ nullable: false })
   public image_url: string;

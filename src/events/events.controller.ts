@@ -31,9 +31,8 @@ export class EventsController {
       name: query.name,
       category: EventCategory[query.category],
       orderBy: FindAllOrderBy[query.orderBy],
-      pageNumber: parseInt(query.pageNumber),
-      contentPerPage: parseInt(query.contentPerPage),
     };
+    if (query.userId) findQuery.userId = query.userId;
     const events = await this.eventsService.findAllEvents(findQuery);
     return events;
   }
@@ -48,7 +47,7 @@ export class EventsController {
     return event;
   }
 
-  @Get('joined')
+  @Get('join')
   async getJoinEvent(@Req() req: Request) {
     const user: User = req['user'].information;
     if (!user) {

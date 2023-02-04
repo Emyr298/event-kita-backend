@@ -7,9 +7,8 @@ import { User } from 'src/common/entities/user.entity';
 export interface FindAllQuery {
   name?: string;
   category?: EventCategory;
-  pageNumber?: number;
-  contentPerPage?: number;
   orderBy?: FindAllOrderBy;
+  userId?: string;
 }
 
 export enum FindAllOrderBy {
@@ -21,6 +20,7 @@ interface Where {
   name?: FindOperator<string>;
   category?: EventCategory;
   end_time?: FindOperator<Date>;
+  userId?: string;
 }
 
 interface Order {
@@ -64,6 +64,7 @@ export class EventsService {
 
     if (query.name) where.name = Like(`%${query.name}%`);
     if (query.category) where.category = query.category;
+    if (query.userId) where.userId = query.userId;
 
     if (query.orderBy == FindAllOrderBy.byStartTime) {
       order.start_time = 'ASC';
@@ -74,8 +75,6 @@ export class EventsService {
     return this.eventRepo.find({
       where,
       order,
-      skip: (query.pageNumber - 1) * query.contentPerPage,
-      take: query.contentPerPage,
     });
   }
 
@@ -116,6 +115,7 @@ export class EventsService {
       end_time: data.end_time,
       image_url: data.image_url,
       user: data.user,
+      userId: data.user.id,
     });
     return await this.eventRepo.save(event);
   }

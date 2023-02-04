@@ -24,13 +24,8 @@ export class GetEventsDto {
   @IsOptional()
   public name?: string;
 
-  @IsInt()
-  @Type(() => Number)
-  public pageNumber: string;
-
-  @IsInt()
-  @Type(() => Number)
-  public contentPerPage: string;
+  @IsOptional()
+  public userId?: string;
 }
 
 export class PostEventDto {
